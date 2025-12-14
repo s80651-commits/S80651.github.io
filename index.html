@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bento Grid - UMT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Rule 3 & 4: Typography and Color Palette */
+        :root {
+            --color-background: #F8F8F8; /* Soft Grey Background */
+            --color-card-bg: #FFFFFF; /* White Card Background */
+            --color-text-primary: #1A1A1A; /* Near Black */
+            --color-text-secondary: #6A6A6A; /* Soft Grey Text */
+            --color-accent: #0056B3; /* Deep Ocean Blue Accent (UMT Theme) */
+            --border-radius: 12px;
+            --font-family-primary: 'Inter', sans-serif;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ------------------------------------------- */
+        /* Bento Grid Container & Card Styles */
+        /* ------------------------------------------- */
+
+        .bento-grid {
+            /* Desktop/Tablet Grid Setup */
+            display: grid;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            
+            /* Initial layout for larger screens (3-column structure) */
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid #EDEDED; /* Light subtle border */
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+        
+        .card p, .card ul {
+            font-size: 0.95rem;
+            color: var(--color-text-primary);
+        }
+
+        .card-content {
+            flex-grow: 1; 
+        }
+
+        /* ------------------------------------------- */
+        /* Card Layout/Sizing Rules for Desktop */
+        /* ------------------------------------------- */
+
+        /* Card 1 (Profile): Large box (Span 2 columns, 2 rows) */
+        .card-profile {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Card 6 (Playlist): Wide box at the bottom (Span all 3 columns) */
+        .card-playlist {
+            grid-column: 1 / -1; 
+        }
+
+        /* Custom Content Styling */
+        .profile-header {
+            margin-bottom: 20px;
+        }
+        .profile-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .profile-header p {
+            color: var(--color-accent);
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        .profile-tagline {
+            font-style: italic;
+            margin-top: 15px;
+            color: var(--color-text-secondary);
+            border-left: 3px solid var(--color-accent);
+            padding-left: 10px;
+        }
+
+        .social-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links li a {
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .social-links li a:hover {
+            color: var(--color-accent);
+        }
+
+        .subject-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .subject-list li {
+            background-color: var(--color-background);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .time-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 10px;
+            color: var(--color-accent);
+        }
+        
+        .campus-name {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .playlist-placeholder {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #F0F0F0;
+            border-radius: 8px;
+            border: 2px dashed var(--color-text-secondary);
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
+
+        /* ------------------------------------------- */
+        /* Rule 2: Mobile Responsiveness (Stacking) */
+        /* ------------------------------------------- */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .bento-grid {
+                /* Stacks all items vertically */
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            /* Resetting desktop grid spans to ensure vertical stacking */
+            .card-profile,
+            .card-location,
+            .card-tech-stack,
+            .card-case-study,
+            .card-hobby,
+            .card-playlist {
+                grid-column: span 1 !important;
+                grid-row: auto !important;
+            }
+            
+            /* Adjusting Card 1 size for mobile */
+            .profile-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            /* Simplifying lists */
+            .subject-list {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+        
+        /* Tablet Adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+             .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            /* Card 1 shrinks its height slightly */
+            .card-profile {
+                grid-row: span 1; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bento-grid">
+        
+        <div class="card card-profile">
+            <div class="card-content">
+                <div class="profile-header">
+                    <h1>FARHANI NUR AFIQAH</h1>
+                    <p>Food Science Student</p>
+                </div>
+                
+                <p class="profile-tagline">'YOUR FOOD IS OUR PRIORITY.'</p>
+                
+                <p style="margin-top: 20px;"><strong>Program:</strong> Food Science</p>
+                <p><strong>Year:</strong> Year 2</p>
+                <br>
+                <h3>Connect</h3>
+                <ul class="social-links">
+                    <li><a href="#" target="_blank">LinkedIn</a></li>
+                    <li><a href="#" target="_blank">GitHub</a></li>
+                    <li><a href="https://umt.edu.my/" target="_blank">UMT Portal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card card-location">
+            <h3>Current Location</h3>
+            <p class="campus-name">UMT, Kuala Nerus</p>
+            <div id="live-time" class="time-display"></div> 
+        </div>
+
+        <div class="card card-hobby">
+            <h3>Campus Activity</h3>
+            <p><strong>Hobby:</strong> Evening walks at Pantai UMT</p>
+            <p style="margin-top: 5px; color: var(--color-text-secondary);">Focusing on mental wellness and enjoying the coastal environment.</p>
+        </div>
+
+        <div class="card card-tech-stack">
+            <h3>Key Subjects & Skills</h3>
+            <ul class="subject-list">
+                <li>Food Chemistry</li>
+                <li>Microbiology</li>
+                <li>Excel</li>
+                <li>Lab Analysis</li>
+            </ul>
+        </div>
+
+        <div class="card card-case-study">
+            <h3>Recent Case Study</h3>
+            <p><strong>Title:</strong> Starch Gelatinization in Local Kuih</p>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">
+                Analyzing texture profiles of **Kuih Lapis** to understand the impact of ingredient ratios on its distinct layering structure and mouthfeel. 
+            </p>
+        </div>
+
+        <div class="card card-playlist">
+            <h3>Study Playlist</h3>
+            <div class="playlist-placeholder">
+                Placeholder for a Music Player Widget / Spotify Embed
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function updateClock() {
+            // Options for Malaysia time (UTC+8)
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Kuala_Lumpur'
+            };
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', options);
+            
+            document.getElementById('live-time').textContent = timeString;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+        // Initial call to display immediately
+        updateClock();
+    </script>
+    
+</body>
+</html>
