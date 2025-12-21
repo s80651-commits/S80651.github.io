@@ -60,7 +60,6 @@
             overflow: hidden; 
         }
         
-        /* Subtle scale-up hover effect */
         .card:hover {
             transform: scale(1.01);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -86,32 +85,28 @@
         /* Card Layout/Sizing Rules for Desktop */
         /* ------------------------------------------- */
 
-        /* Card 1 (Profile): Large box (Span 2 columns, 2 rows) */
         .card-profile {
             grid-column: span 2;
             grid-row: span 2;
-            
-            /* --- BACKGROUND IMAGE IMPLEMENTATION --- */
-            background-image: url('bg.jpg'); /* 1. Set the image file */
-            background-size: cover;          /* 2. Ensure image covers the entire card */
-            background-position: center;     /* 3. Center the image */
-            background-color: #003366;       /* Fallback: Dark blue if image fails */
+            background-image: url('bg.jpg'); 
+            background-size: cover;          
+            background-position: center;     
+            background-color: #003366;       
         }
         
         .card-profile:hover {
-            transform: scale(1.005); /* Less zoom for the large card with image */
+            transform: scale(1.005);
         }
 
-        /* --- TEXT CONTRAST ADJUSTMENTS FOR IMAGE BACKGROUND --- */
         .card-profile h1, 
         .card-profile p,
         .card-profile h3 {
-            color: #FFFFFF !important; /* Force white text over the background image */
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* Text shadow for better readability */
+            color: #FFFFFF !important; 
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); 
         }
         
         .card-profile .profile-header p {
-            color: #ADD8E6 !important; /* Lighter accent color for the program title */
+            color: #ADD8E6 !important; 
         }
 
         .card-profile .profile-tagline {
@@ -130,14 +125,51 @@
             padding: 2px 4px;
             border-radius: 4px;
         }
-        /* ---------------------------------------------------- */
 
-        /* Card 6 (Playlist): Wide box at the bottom (Span all 3 columns) */
+        /* Case Study Custom Column Layout */
+        .case-study-grid {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .case-study-text {
+            flex: 2;
+        }
+
+        .case-study-action {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            border-left: 1px solid #EDEDED;
+            padding-left: 20px;
+        }
+
+        /* App Button Styling */
+        .app-button {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: #FFFFFF !important;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 86, 179, 0.2);
+        }
+
+        .app-button:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
+        }
+
         .card-playlist {
             grid-column: 1 / -1; 
         }
         
-        /* ... (rest of the styling remains the same) ... */
         .profile-header {
             margin-bottom: 20px;
         }
@@ -207,10 +239,7 @@
             margin-top: 15px;
         }
 
-
-        /* ------------------------------------------- */
-        /* Mobile Responsiveness (Stacking) */
-        /* ------------------------------------------- */
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             body {
                 padding: 15px;
@@ -230,6 +259,23 @@
             .card-playlist {
                 grid-column: span 1 !important;
                 grid-row: auto !important;
+            }
+
+            .case-study-grid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .case-study-action {
+                border-left: none;
+                border-top: 1px solid #EDEDED;
+                padding-left: 0;
+                padding-top: 15px;
+                width: 100%;
+            }
+
+            .app-button {
+                width: 100%;
             }
         }
     </style>
@@ -288,17 +334,24 @@
 
         <div class="card card-case-study">
             <h3>Recent Case Study</h3>
-            <p><strong>Title:</strong> Starch Gelatinization in Local Kuih</p>
-            <p style="margin-top: 10px; color: var(--color-text-secondary);">
-                Analyzing texture profiles of **Kuih Lapis** to understand the impact of ingredient ratios on its distinct layering structure and mouthfeel.
-            </p>
+            <div class="case-study-grid">
+                <div class="case-study-text">
+                    <p><strong>Title:</strong> Starch Gelatinization in Local Kuih</p>
+                    <p style="margin-top: 10px; color: var(--color-text-secondary);">
+                        Analyzing texture profiles of **Kuih Lapis** to understand the impact of ingredient ratios on its distinct layering structure and mouthfeel.
+                    </p>
+                </div>
+                <div class="case-study-action">
+                    <a href="https://s80651.github.io/lab-timer-app/app.html" class="app-button" target="_blank">Try My Lab Timer App</a>
+                </div>
+            </div>
         </div>
 
         <div class="card card-playlist">
             <h3>Study Playlist</h3>
             <div class="playlist-placeholder">
-                Placeholder
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7flKzMJj46Ttsb62sM93zy?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWZeKzbqS3o6s" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
         </div>
 
     </div>
